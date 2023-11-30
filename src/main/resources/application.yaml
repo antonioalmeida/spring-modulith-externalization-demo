@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: local
+    password: local
+    url: jdbc:postgresql://localhost:5432/postgres
+  cloud:
+    aws:
+      # TODO: replace url for failure scenario
+      ## endpoint: http://localhost:4567
+      endpoint: http://localhost:4566
+      credentials:
+        access-key: noop
+        secret-key: noop
+      region:
+        static: eu-west-1

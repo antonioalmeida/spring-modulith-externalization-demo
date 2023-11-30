@@ -1,0 +1,25 @@
+version: '3.9'
+networks:
+  obref:
+services:
+  postgres:
+    container_name: postgres-demo
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    hostname: postgres
+    environment:
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_USER=local
+      - POSTGRES_DB=postgres
+  localstack:
+    image: localstack/localstack:1.4.0
+    container_name: localstack
+    ports:
+      - '4566:4566' # LocalStack Edge Proxy
+    volumes:
+      - ./localstack_start.sh:/docker-entrypoint-initaws.d/localstack_start.sh
+    environment:
+      SERVICES: 'sqs'
+      DEFAULT_REGION: 'eu-west-1'
+    command: [ '/docker-entrypoint-initaws.d/localstack_start.sh' ]
